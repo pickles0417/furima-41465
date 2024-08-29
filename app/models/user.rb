@@ -6,13 +6,15 @@ class User < ApplicationRecord
   has_many :items
   has_many :orders
 
-  validates :encrypted_password, format: { with: /\A[a-zA-Z0-9]+\z/}
-  validates :password_confirmation, presence: true
-  validates :nickname, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龠々ー]+\z/}
-  validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龠々ー]+\z/}
-  validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー]+\z/}
-  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー]+\z/}
-  validates :birthday, presence: true
+  with_options presence: true do
+    PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+    validates_format_of :password, with: PASSWORD_REGEX, message: 'Include both letters and numbers'
+    validates :nickname
+    validates :email,    uniqueness: true
+    validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+    validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+    validates :last_name_kana, format: { with: /\A[ァ-ヶー－]+\z/ }
+    validates :first_name_kana, format: { with: /\A[ァ-ヶー－]+\z/ }
+    validates :birthday
+  end
 end
