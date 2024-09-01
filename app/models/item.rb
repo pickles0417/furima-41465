@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
+
   belongs_to :user
   has_one_attached :image
 
@@ -9,8 +11,6 @@ class Item < ApplicationRecord
   belongs_to :shipping_cost
   belongs_to :shipping_date
 
-
-  has_one_attached :image
 
   with_options presence: true do
     validates :user_id
