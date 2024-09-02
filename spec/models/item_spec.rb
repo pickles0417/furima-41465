@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe Item, type: :model do
   before do
-    @item = FactoryBot.create(:item)
+    @item = FactoryBot.build(:item)
     sleep 0.1
   end
 
@@ -37,7 +37,7 @@ RSpec.describe Item, type: :model do
     end
 
     context '出品ができないとき' do
-      it 'userが紐づいていないと保存できないこと' do
+      it 'userが紐づいていないと保存できない' do
         @item.user = nil
         @item.valid?
         expect(@item.errors.full_messages).to include('User must exist')
@@ -87,7 +87,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank", 'Price is not a number')
       end
-      it '価格に半角数字以外の値が含まれている場合は保存できないこと' do
+      it '価格に半角数字以外の値が含まれている場合は保存できない' do
         @item.price = "aaa"
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
