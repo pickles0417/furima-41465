@@ -84,3 +84,7 @@
 
 - belongs_to :user
 - belongs_to :item
+
+
+"sk_test_a4eb4875ce36974a6ed88df5"
+"pk_test_cdf435e13285dc31b06dbb0a"
