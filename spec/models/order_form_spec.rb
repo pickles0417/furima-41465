@@ -6,7 +6,7 @@ RSpec.describe OrderForm, type: :model do
   end
 
   describe '配送先情報の保存' do
-    context '配送先情報の保存ができるとき' do
+    context '内容に問題ない場合' do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@order_form).to be_valid
       end
@@ -44,7 +44,7 @@ RSpec.describe OrderForm, type: :model do
       end
     end
 
-    context '配送先情報の保存ができないとき' do
+    context '内容に問題がある場合' do
       it 'userが紐づいていないと保存できない' do
         @order_form.user_id = nil
         @order_form.valid?
@@ -99,6 +99,11 @@ RSpec.describe OrderForm, type: :model do
         @order_form.phone_number = 12_345_678_910_123_111
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include('Phone number is invalid')
+      end
+      it "tokenが空では登録できないこと" do
+        @order_form.token = nil
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
