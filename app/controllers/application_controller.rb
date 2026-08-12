@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
 
   def basic_auth
     authenticate_or_request_with_http_basic do |username, password|
-      username == 'admin' && password == '2222'
+      username == ENV.fetch('BASIC_AUTH_USERNAME', 'admin') &&
+        password == ENV.fetch('BASIC_AUTH_PASSWORD', '2222')
     end
   end
 

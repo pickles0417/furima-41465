@@ -1,5 +1,17 @@
 # See https://git-scm.com/docs/gitattributes for more about git attribute files.
 
+# Keep repository text files UTF-8 with LF line endings.
+* text=auto eol=lf
+
+# Keep binary assets binary.
+*.gif binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.svg text eol=lf
+*.woff binary
+*.woff2 binary
+
 # Mark the database schema as having been generated.
 db/schema.rb linguist-generated
 
